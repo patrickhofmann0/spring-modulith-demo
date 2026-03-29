@@ -1,0 +1,37 @@
+name: build
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Graphviz
+        run: sudo apt-get install -y graphviz
+
+      - name: Build with Maven
+        run: mvn install
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: './target/generated-docs'
+
+  deploy-to-gh-pages:
+    name: Deploy to GitHub Pages
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs: [build-and-deploy]
+
+    environment:
+      # environment created automatically by GitHub
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
