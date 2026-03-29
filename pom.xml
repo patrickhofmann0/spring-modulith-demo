@@ -171,6 +171,7 @@
 							<attributes>
 								<toc>left</toc>
 								<icons>font</icons>
+								<plantuml-config>${project.basedir}/src/docs/plantuml.cfg</plantuml-config>
 							</attributes>
 						</configuration>
 					</execution>
