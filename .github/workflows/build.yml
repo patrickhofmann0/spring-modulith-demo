@@ -32,11 +32,11 @@ jobs:
         with:
           path: './target/generated-docs'
 
-  deploy-to-gh-pages:
-    name: Deploy to GitHub Pages
+  deploy-architecture-docu-to-gh-pages:
+    name: Deploy architectural documentation to GitHub Pages
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    needs: [build-and-deploy]
+    needs: [build]
 
     environment:
       # environment created automatically by GitHub
